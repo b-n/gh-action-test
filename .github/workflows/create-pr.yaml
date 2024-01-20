@@ -21,7 +21,6 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
-        if: ${{ steps.rust_version.outputs.version != fromJson(steps.latest_rust_release.outputs.data).tag_name }}
         with:
           title: A pull request from ${{ github.ref }}
           body: |
