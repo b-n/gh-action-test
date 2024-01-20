@@ -1,0 +1,31 @@
+---
+name: Toolchain Version Check
+on: workflow-dispatch
+
+jobs:
+  pr-random-value:
+    name: Check toolchain version
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Edit file
+        run: |
+          dd if=/dev/urandom bs=8 count=1 | base64 > random
+
+      - name: Output random value
+        id: random
+        run: |
+          echo "val=$(dd if=/dev/urandom bs=8 count=1 | base64)" > "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
+        if: ${{ steps.rust_version.outputs.version != fromJson(steps.latest_rust_release.outputs.data).tag_name }}
+        with:
+          title: A pull request from ${{ github.ref }}
+          body: |
+            This is a body with some a merged value from a previous step ${{ steps.random.outputs.val }}
+          commit-message: Random Value
+          base: main
+          branch: actions/random
