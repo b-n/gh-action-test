@@ -1,10 +1,10 @@
 ---
-name: Toolchain Version Check
+name: PR Random Value
 on: workflow_dispatch
 
 jobs:
   pr-random-value:
-    name: Check toolchain version
+    name: PR random value
     runs-on: ubuntu-latest
 
     steps:
