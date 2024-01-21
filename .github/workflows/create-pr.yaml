@@ -21,10 +21,14 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
+        env:
+          RANDOM_ENV: ${{ steps.random.outputs.val }}
         with:
-          title: A pull request from ${{ github.ref }}
+          title: A pull request from ${{ github.ref }}. ENV: $RANDOM_ENV
           body: |
             This is a body with some a merged value from a previous step ${{ steps.random.outputs.val }}
+
+            Value from ENV "$RANDOM_ENV"
           commit-message: Random Value
           base: main
           branch: actions/random
