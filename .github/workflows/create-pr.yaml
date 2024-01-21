@@ -24,7 +24,7 @@ jobs:
         env:
           RANDOM_ENV: ${{ steps.random.outputs.val }}
         with:
-          title: "A pull request from ${{ github.ref }}. ENV: $RANDOM_ENV"
+          title: A pull request from ${{ github.ref }}. ENV: $RANDOM_ENV
           body: |
             This is a body with some a merged value from a previous step ${{ steps.random.outputs.val }}
 
